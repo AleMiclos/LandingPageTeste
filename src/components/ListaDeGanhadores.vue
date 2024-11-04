@@ -1,14 +1,20 @@
+<!-- eslint-disable vue/no-use-v-if-with-v-for -->
 <template>
   <section class="ganhadores" id="ganhadores">
     <div class="winner-list">
       <h3>Lista de Ganhadores</h3>
-      
-      <!-- adicionar novo ganhador -->
+
+      <!-- Spinner de Carregamento -->
+      <div v-if="loading" class="loading-spinner">
+        Carregando...
+      </div>
+
+      <!-- Botão para Adicionar Novo Ganhador -->
       <button class="add-winner-button" @click="showAddForm = !showAddForm">
         {{ showAddForm ? 'Cancelar' : 'Adicionar Ganhador' }}
       </button>
 
-      <!-- Forms para adicionar novo ganhador -->
+      <!-- Formulário para Adicionar Novo Ganhador -->
       <div v-if="showAddForm" class="add-winner-form">
         <h4>Adicionar Novo Ganhador</h4>
         <form @submit.prevent="addWinner">
@@ -19,8 +25,8 @@
         </form>
       </div>
 
-      <!-- lista dos ganhadores -->
-      <div v-for="(winner, index) in winners" :key="winner._id" class="accordion-item">
+      <!-- Lista de Ganhadores -->
+      <div v-if="!loading" v-for="(winner, index) in winners" :key="winner._id" class="accordion-item">
         <button class="accordion-button" @click="toggleAccordion(index)">
           {{ winner.name }}
         </button>
@@ -48,15 +54,19 @@ export default {
         prize: '',
         date: ''
       },
+      loading: true, 
     };
   },
   methods: {
     async fetchWinners() {
       try {
+        this.loading = true; 
         const response = await axios.get('https://winnersapi.onrender.com/winners');
         this.winners = response.data;
       } catch (error) {
         console.error("Erro ao carregar ganhadores:", error);
+      } finally {
+        this.loading = false; 
       }
     },
     toggleAccordion(index) {
@@ -106,6 +116,12 @@ export default {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.loading-spinner {
+  font-size: 20px;
+  color: #007bff;
+  margin: 20px;
 }
 
 .add-winner-button {
@@ -158,10 +174,10 @@ export default {
 
 .accordion-item {
   margin-bottom: 15px;
-  padding: 20px;
+  padding: 15px;
   font-size: 20px;
   color: white;
-  border-radius: 4px;
+  border-radius: 7px;
   cursor: pointer;
   transition: background-color 0.3s;
   color: black;
@@ -170,7 +186,6 @@ export default {
 
 .accordion-item:hover {
   background-color: #549dec;
-
 }
 
 .accordion-content {
@@ -185,6 +200,7 @@ export default {
 .accordion-button {
   color: black; 
   font-weight: bold;
+  border-bottom: solid 2px black;
 }
 
 .remove-button {
