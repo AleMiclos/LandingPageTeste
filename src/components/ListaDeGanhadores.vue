@@ -161,7 +161,6 @@ export default {
   padding: 20px;
   font-size: 20px;
   color: white;
-  border: 2px solid black;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
