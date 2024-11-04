@@ -165,10 +165,12 @@ export default {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .accordion-item:hover {
-  background-color: #0056b3;
+  background-color: #549dec;
 
 }
 
@@ -178,6 +180,12 @@ export default {
   border: 2px solid #ddd;
   border-radius: 4px;
   margin-top: 5px;
+  color: black;
+}
+
+.accordion-button {
+  color: black; 
+  font-weight: bold;
 }
 
 .remove-button {
@@ -202,6 +210,7 @@ export default {
   
   .accordion-button, .remove-button {
     font-size: 16px;
+    color: black;
   }
 }
 </style>
