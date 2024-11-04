@@ -159,8 +159,7 @@ export default {
 .accordion-item {
   margin-bottom: 15px;
   padding: 20px;
-  font-size: 18px;
-  background-color: #007bff;
+  font-size: 20px;
   color: white;
   border: 2px solid black;
   border-radius: 4px;
